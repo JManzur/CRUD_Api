@@ -39,4 +39,3 @@ async def set_influencers_to_follow(request):
 @app.get('/healthcheck', status_code=status.HTTP_200_OK)
 def perform_healthcheck():
     return {'healthcheck': 'Everything OK!'}
-
