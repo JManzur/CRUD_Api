@@ -1,6 +1,8 @@
 from fastapi import FastAPI, status
 from fastapi.staticfiles import StaticFiles
 from routes.crud import crud
+from routes.auth import auth
+from dotenv import load_dotenv
 import logging
 
 logger = logging.basicConfig(
@@ -30,10 +32,13 @@ app = FastAPI(
 )
 
 app.include_router(crud)
-app.mount("/", StaticFiles(directory="ui", html=True), name="ui")
+app.include_router(auth)
+load_dotenv()
+
+app.mount("/", StaticFiles(directory="landing_page", html=True), name="landing_page")
 
 @app.get("/", status_code=200)
-async def set_influencers_to_follow(request):
+async def home():
     return {}
 
 @app.get('/healthcheck', status_code=status.HTTP_200_OK)
