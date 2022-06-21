@@ -3,6 +3,7 @@ from config.db import db_connection
 from models.users import users_table
 from starlette.status import HTTP_204_NO_CONTENT
 from schemas.user import User
+from middleware.verify_token import VerifyTokenRoute
 import logging
 
 logger = logging.basicConfig(
@@ -13,7 +14,7 @@ logger = logging.basicConfig(
 )
 
 #Instanciate the API:
-crud = APIRouter()
+crud = APIRouter(route_class=VerifyTokenRoute)
 
 @crud.post("/create", tags=["Operations"])
 def create(user: User):
