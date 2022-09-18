@@ -1,23 +1,15 @@
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, Response, Header, Depends
 from config.db import db_connection
 from models.users import users_table
 from starlette.status import HTTP_204_NO_CONTENT
 from schemas.user import User
 from middleware.verify_token import VerifyTokenRoute
-import logging
+from routes.auth import oauth2_scheme
 
-logger = logging.basicConfig(
-	filename='crud_api.log',
-	format='[%(asctime)s] %(levelname)s %(name)s %(message)s',
-	level=logging.INFO,
-	datefmt='%Y-%m-%d %H:%M:%S'
-)
-
-#Instanciate the API:
 crud = APIRouter(route_class=VerifyTokenRoute)
 
 @crud.post("/create", tags=["Operations"])
-def create(user: User):
+def create(user: User, Authorization: str = Header(None), token: str = Depends(oauth2_scheme)):
     new_user = {
         "name": user.name,
         "last_name": user.last_name,
@@ -25,19 +17,18 @@ def create(user: User):
         }
     insert_operation = db_connection.execute(users_table.insert().values(new_user))
     create_result = db_connection.execute(users_table.select().where(users_table.c.id == insert_operation.lastrowid)).first()
-    logging.info(create_result)
     return create_result
 
 @crud.get("/read", response_model=list[User], tags=["Operations"])
-def read():
+def read(Authorization: str = Header(None), token: str = Depends(oauth2_scheme)):
     return db_connection.execute(users_table.select()).fetchall()
 
 @crud.get("/read/{id}", response_model=User, tags=["Operations"])
-def read_id(id: str):
+def read_id(id: str, Authorization: str = Header(None), token: str = Depends(oauth2_scheme)):
     return db_connection.execute(users_table.select().where(users_table.c.id == id)).first()
 
 @crud.put("/update/{id}", response_model=User, tags=["Operations"])
-def update_id(id: str, user: User):
+def update_id(id: str, user: User, Authorization: str = Header(None), token: str = Depends(oauth2_scheme)):
     db_connection.execute(users_table.update().values(
         name = user.name,
         last_name = user.last_name,
@@ -46,6 +37,6 @@ def update_id(id: str, user: User):
     return db_connection.execute(users_table.select().where(users_table.c.id == id)).first()
 
 @crud.delete("/delete/{id}", status_code=HTTP_204_NO_CONTENT, tags=["Operations"])
-def delete_id(id: str):
+def delete_id(id: str, Authorization: str = Header(None), token: str = Depends(oauth2_scheme)):
     db_connection.execute(users_table.delete().where(users_table.c.id == id))
     return Response(status_code=HTTP_204_NO_CONTENT)

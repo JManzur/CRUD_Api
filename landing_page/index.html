@@ -19,15 +19,18 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="/healthcheck">Health Check endpoint</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/docs">Documentation healthcheck</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://github.com/JManzur/CRUD_Api">GitHub repository</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/healthcheck" target="_blank">Health Check endpoint</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/docs" target="_blank">Documentation</a></li>
+                        <li class="nav-item"><a class="nav-link" href="https://github.com/JManzur/CRUD_Api" target="_blank">GitHub repository</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">More Info</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">What is REST?</a></li>
                                 <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank">What are CRUD operations?</a></li>
                                 <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/API" target="_blank">What is a API?</a></li>
+                                <li><a class="dropdown-item" href="https://jwt.io/introduction" target="_blank">What is a JWT (JSON Web Token)?</a></li>
+                                <li><a class="dropdown-item" href="https://swagger.io/docs/specification/authentication/bearer-authentication/" target="_blank">What is a Bearer Authentication?</a></li>
+                                <li><a class="dropdown-item" href="https://swagger.io/docs/specification/2-0/what-is-swagger/" target="_blank">What is a Swagger?</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -39,6 +42,15 @@
             <div class="text-center mt-5">
                 <h2>Welcome to the CRUD API landing page</h2>
                 <p class="lead">To learn how to use the API, check out our <a href="/docs" class="link-dark" target="_blank">documentation</a></p>
+
+                <div class="row justify-content-center">
+                    <div class="alert alert-dark w-50" role="alert">
+                        <h4 class="alert-heading">Authentication required!</h4>
+                        <hr>
+                        <p>Authentication is required to use this API, <a href="mailto:jmanzurst@gmail.com" class="alert-link" target="_blank">contact the system administrator</a> to request a username and password, once you get your user credential use the /login endpoint to get an authentication token.</p>
+                    </div>
+                </div>
+
                 <p>Development by <a href="https://jmanzur.com/" class="link-secondary" target="_blank">JManzur</a> Powered by <a href="https://fastapi.tiangolo.com/" class="link-secondary" target="_blank">FastAPI</a></p>
             </div>
         </div>

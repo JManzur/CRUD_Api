@@ -1,5 +1,5 @@
 from fastapi import Request
-from jwt_functions import validate_token
+from config.jwt_functions import validate_token
 from fastapi.routing import APIRoute
 
 class VerifyTokenRoute(APIRoute):

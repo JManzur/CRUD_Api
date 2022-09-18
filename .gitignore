@@ -1,6 +1,9 @@
 #JManzur
 .vscode
 db_cred.yml
+mongodb_cred.yml
+mysql_cred.yml
+crud_api.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
