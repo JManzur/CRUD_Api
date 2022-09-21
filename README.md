@@ -12,6 +12,11 @@ Current features of the CRUD API:
 - **Authentication Endpoint**: To perform CRUD operations, the user must be authenticated with a [bearer token](https://swagger.io/docs/specification/authentication/bearer-authentication/), at the authentication endpoint, the user can login with a set of predefined credentials, the application will validate the credentials against a [MongoDB collection](https://www.mongodb.com/docs/manual/core/databases-and-collections/#collections) and return a bearer token.
 - **CRUD Endpoints**: Secure endpoints to CREATE, READ, UPDATE, and DELETE users from a MySQL Table.
 
+
+# Prerequisites:
+
+In this project I am using two types of databases, MySQL for the  CRUD operations and MongoDB for user authentication. Why? just for fun :man_shrugging: , if you want to do the same, you must have these databases running and configured before deploying the CRUD API.
+
 # Solution Diagram:
 
 ![FastAPI CRUD](images/FastAPI_CRUD.drawio.png)
