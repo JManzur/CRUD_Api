@@ -1,11 +1,16 @@
 # FastAPI - CRUD API 
 
-This is a demo API that you can use as a starting point for many CRUD type operations projects. To build this demo, I'm using FastAPI, an extremely popular web framework for building APIs with Python.
+This is a demo API that you can use as a starting point for many CRUD operations type projects. To build this demo, I'm using [FastAPI](https://fastapi.tiangolo.com/), an extremely popular web framework for building APIs with Python.
+
+> :bulb: A CRUD API is an API that can perform CREATE, READ, UPDATE, and DELETE operations on a database.
 
 Current features of the CRUD API:
 
-- Landind page.
-- Auto generated documentation 
+- **Landing page**: 100% unnecessary in a CRUD API but nice to have.
+- **Auto generated documentation**: Powered by FastAPI
+- **HealtCheck Endpoint**: Return  a JSON response with an 200 HTTP status code and the hostname of the container where the app is running (For debugging).
+- **Authentication Endpoint**: To perform CRUD operations, the user must be authenticated with a [bearer token](https://swagger.io/docs/specification/authentication/bearer-authentication/), at the authentication endpoint, the user can login with a set of predefined credentials, the application will validate the credentials against a [MongoDB collection](https://www.mongodb.com/docs/manual/core/databases-and-collections/#collections) and return a bearer token.
+- **CRUD Endpoints**: Secure endpoints to CREATE, READ, UPDATE, and DELETE users from a MySQL Table.
 
 # Solution Diagram:
 
