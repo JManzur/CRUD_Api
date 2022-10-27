@@ -12,6 +12,16 @@ Current features of the CRUD API:
 - **Authentication Endpoint**: To perform CRUD operations, the user must be authenticated with a [bearer token](https://swagger.io/docs/specification/authentication/bearer-authentication/), at the authentication endpoint, the user can login with a set of predefined credentials, the application will validate the credentials against a [MongoDB collection](https://www.mongodb.com/docs/manual/core/databases-and-collections/#collections) and return a bearer token.
 - **CRUD Endpoints**: Secure endpoints to CREATE, READ, UPDATE, and DELETE users from a MySQL Table.
 
+# Solution Diagram:
+
+![FastAPI CRUD](images/FastAPI_CRUD.drawio.png)
+
+## Tested with: 
+
+| Environment | Application | Version  |
+| ----------------- |-----------|---------|
+| WSL2 Ubuntu 20.04 | Python | v3.9.5  |
+| WSL2 Ubuntu 20.04 | Docker | v20.10.17 |
 
 # Prerequisites:
 
@@ -20,24 +30,17 @@ In this project I am using two types of databases, MySQL for the  CRUD operation
 In this project I used Docker containers for both the MySQL database and the MongoDB database, if you want to deploy the databases in the same way, follow these instructions:
 
 <details>
-  <summary>Click to reveal instructions:</summary>
-  
-  ### Heading
-  1. Foo
-  2. Bar
-     * Baz
-     * Qux
+  <summary><b>Click to reveal instructions:</b></summary>
 
-  ### Some Code
   ```yaml
-    version: '3'
+    version: '3.1'
 
     services:
     db:
         image: mysql:latest
         container_name: MySQL
         command: --default-authentication-plugin=mysql_native_password
-        restart: unless-stopped
+        restart: always
         environment:
         - MYSQL_ROOT_PASSWORD=
         - TZ=America/Argentina/Buenos_Aires
@@ -57,20 +60,48 @@ In this project I used Docker containers for both the MySQL database and the Mon
   ```
 
   ```yaml
+    version: '3.1'
 
+    services:
+    mongo:
+        image: mongo:4.4.6
+        container_name: MongoDB
+        restart: always
+        environment:
+        - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+        - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+        networks:
+        - mongodb-network
+        ports:
+        - 27017:27017
+        volumes:
+        - /docker/MongoDB/mongodb_data:/data/db
+
+    mongo-express:
+        image: mongo-express
+        container_name: MongoDB_Express
+        restart: always
+        depends_on:
+        - mongo
+        networks:
+        - mongodb-network
+        ports:
+        - 8081:8081
+        environment:
+        - ME_CONFIG_MONGODB_SERVER=MongoDB
+        - ME_CONFIG_MONGODB_ADMINUSERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
+        - ME_CONFIG_MONGODB_ADMINPASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
+        - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
+        - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
+        volumes:
+        - /docker/MongoDB/mongodb_data:/data/db
+
+    networks:
+    mongodb-network:
+        driver: bridge
   ```
 </details>
 
-# Solution Diagram:
-
-![FastAPI CRUD](images/FastAPI_CRUD.drawio.png)
-
-## Tested with: 
-
-| Environment | Application | Version  |
-| ----------------- |-----------|---------|
-| WSL2 Ubuntu 20.04 | Python | v3.9.5  |
-| WSL2 Ubuntu 20.04 | Docker | v20.10.17 |
 
 ## Pre-Build steps:
 
